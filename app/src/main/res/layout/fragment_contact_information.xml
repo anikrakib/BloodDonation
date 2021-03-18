@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.AboutYouFragment"
+    tools:ignore="HardcodedText"
+    tools:targetApi="lollipop">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/nextButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contact Information"
+            android:textStyle="bold"
+            android:textSize="35sp"
+            android:textColor="@color/primaryTextColor"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/margin_15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PhoneNo"
+                android:gravity="center"
+                android:textColor="@color/secondaryTextColor"
+                android:layout_marginStart="@dimen/margin_5dp"
+                android:layout_marginBottom="@dimen/margin_5dp"
+                android:textSize="@dimen/text_size_18sp"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/textBoxBackgroundColor"
+                app:cardCornerRadius="18dp"
+                android:elevation="@dimen/margin_5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/phoneNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="018********"
+                        android:inputType="phone"
+                        android:layout_marginStart="@dimen/margin_10dp"
+                        android:layout_marginEnd="@dimen/margin_10dp"
+                        android:padding="@dimen/margin_15dp"
+                        android:textSize="@dimen/text_size_15sp"
+                        android:background="@android:color/transparent"
+                        android:importantForAutofill="no" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/margin_15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alternative Phone No"
+                android:gravity="center"
+                android:textColor="@color/secondaryTextColor"
+                android:layout_marginStart="@dimen/margin_5dp"
+                android:layout_marginBottom="@dimen/margin_5dp"
+                android:textSize="@dimen/text_size_18sp"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/textBoxBackgroundColor"
+                app:cardCornerRadius="18dp"
+                android:elevation="@dimen/margin_5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/altPhoneNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="018********"
+                        android:inputType="phone"
+                        android:layout_marginStart="@dimen/margin_10dp"
+                        android:layout_marginEnd="@dimen/margin_10dp"
+                        android:padding="@dimen/margin_15dp"
+                        android:textSize="@dimen/text_size_15sp"
+                        android:background="@android:color/transparent"
+                        android:importantForAutofill="no"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/margin_15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Social(Optional)"
+                android:gravity="center"
+                android:textColor="@color/secondaryTextColor"
+                android:layout_marginStart="@dimen/margin_5dp"
+                android:layout_marginBottom="@dimen/margin_5dp"
+                android:textSize="@dimen/text_size_18sp"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/textBoxBackgroundColor"
+                app:cardCornerRadius="18dp"
+                android:elevation="@dimen/margin_5dp"
+                tools:targetApi="lollipop">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/social"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="https://"
+                        android:inputType="phone"
+                        android:layout_marginStart="@dimen/margin_10dp"
+                        android:layout_marginEnd="@dimen/margin_10dp"
+                        android:padding="@dimen/margin_15dp"
+                        android:textSize="@dimen/text_size_15sp"
+                        android:background="@android:color/transparent"
+                        android:importantForAutofill="no"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/contactInformationHints"
+            android:textColor="@color/secondaryTextColor"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_18sp"
+            android:layout_marginTop="@dimen/margin_25dp"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/nextButton"
+        style="@style/fragmentNextButtonStyle"
+        android:layout_width="@dimen/fragment_next_button_width"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
