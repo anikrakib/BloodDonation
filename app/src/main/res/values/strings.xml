@@ -3,4 +3,6 @@
     <string name="lorem">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</string>
     <string name="aboutYouHints">Provide your real name for your identity. Your name will be used for search</string>
     <string name="contactInformationHints">Please provide correct phone no. This information will keep safe</string>
+    <string name="bloodGroupHints">Your blood group need to be accurate. If you don\'t know about it please contact nearest clinic</string>
+    <string name="weightHints">Note: you can not donate blood if you\'re under weight minimum weight for donation requirement <b>50KG</b></string>
 </resources>

@@ -76,11 +76,11 @@ public class BloodGroupFragment extends Fragment implements BloodGroupAdapter.On
                 Log.d ("receiveBundle", key + " is a key in the bundle");
             }
 
-            BloodGroupFragment bloodGroupFragment = new BloodGroupFragment();
-            bloodGroupFragment.setArguments(sendBundle);
+            WeightFragment weightFragment = new WeightFragment();
+            weightFragment.setArguments(sendBundle);
             assert getFragmentManager() != null;
             getFragmentManager().beginTransaction()
-                    .replace(SignUpActivity.activitySignUpBinding.container.getId(),bloodGroupFragment)
+                    .replace(SignUpActivity.activitySignUpBinding.container.getId(),weightFragment)
                     .commit();
         });
 
