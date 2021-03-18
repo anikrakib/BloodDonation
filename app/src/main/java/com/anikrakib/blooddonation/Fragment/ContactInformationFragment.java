@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.anikrakib.blooddonation.Activity.SignUpActivity;
+import com.anikrakib.blooddonation.Model.EnumClass.BloodGroup;
 import com.anikrakib.blooddonation.Model.UserDataModel;
 import com.anikrakib.blooddonation.R;
 import com.anikrakib.blooddonation.Utills.Interface.DetailFragmentListener;
@@ -33,26 +34,35 @@ public class ContactInformationFragment extends Fragment {
         fragmentContactInformationBinding = FragmentContactInformationBinding.inflate(getLayoutInflater());
 
         fragmentContactInformationBinding.nextButton.setOnClickListener(v->{
-            UserDataModel userDataModel = new UserDataModel();
-            Bundle bundle = this.getArguments();
+//            UserDataModel userDataModel = new UserDataModel();
+//            Bundle bundle = this.getArguments();
+//
+//            userDataModel.setPhoneNo(fragmentContactInformationBinding.phoneNo.getText().toString());
+//            userDataModel.setAltPhoneNo(fragmentContactInformationBinding.altPhoneNo.getText().toString());
+//            userDataModel.setSocialMediaLink(fragmentContactInformationBinding.social.getText().toString());
+//            assert bundle != null;
+//            userDataModel.setEmail(bundle.getString("email"));
+//            userDataModel.setUserName(bundle.getString("userName"));
+//            userDataModel.setPassword(bundle.getString("password"));
+//            detailFragmentListener.onDetailsFragment(userDataModel);
 
-            userDataModel.setPhoneNo(fragmentContactInformationBinding.phoneNo.getText().toString());
-            userDataModel.setAltPhoneNo(fragmentContactInformationBinding.altPhoneNo.getText().toString());
-            userDataModel.setSocialMediaLink(fragmentContactInformationBinding.social.getText().toString());
-            assert bundle != null;
-            userDataModel.setEmail(bundle.getString("email"));
-            userDataModel.setUserName(bundle.getString("userName"));
-            userDataModel.setPassword(bundle.getString("password"));
-            detailFragmentListener.onDetailsFragment(userDataModel);
+            Bundle receiveBundle = this.getArguments();
+            Bundle sendBundle = new Bundle();
 
-//            Bundle bundle = new Bundle();
-//            bundle.putString("data","data");
-//            ContactInformationFragment contactInformationFragment = new ContactInformationFragment();
-//            contactInformationFragment.setArguments(bundle);
-//            assert getFragmentManager() != null;
-//            getFragmentManager().beginTransaction()
-//                    .replace(SignUpActivity.activitySignUpBinding.container.getId(),contactInformationFragment)
-//                    .commit();
+            assert receiveBundle != null;
+            sendBundle.putString("email",receiveBundle.getString("email"));
+            sendBundle.putString("useName",receiveBundle.getString("userName"));
+            sendBundle.putString("password",receiveBundle.getString("userName"));
+            sendBundle.putString("phoneNo",fragmentContactInformationBinding.phoneNo.getText().toString());
+            sendBundle.putString("altPhoneNo",fragmentContactInformationBinding.altPhoneNo.getText().toString());
+            sendBundle.putString("social",fragmentContactInformationBinding.social.getText().toString());
+
+            BloodGroupFragment bloodGroupFragment = new BloodGroupFragment();
+            bloodGroupFragment.setArguments(sendBundle);
+            assert getFragmentManager() != null;
+            getFragmentManager().beginTransaction()
+                    .replace(SignUpActivity.activitySignUpBinding.container.getId(),bloodGroupFragment)
+                    .commit();
         });
 
 
