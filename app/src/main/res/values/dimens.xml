@@ -20,4 +20,5 @@
     <dimen name="icon_size_big">75dp</dimen>
     <dimen name="icon_size_medium">45dp</dimen>
     <dimen name="icon_size_small">30dp</dimen>
+    <dimen name="fragment_next_button_width">240dp</dimen>
 </resources>

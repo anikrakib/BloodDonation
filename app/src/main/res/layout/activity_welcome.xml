@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.WelcomeActivity"
+    tools:context=".Activity.WelComeActivity"
     tools:ignore="HardcodedText,ContentDescription">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/startJourneyButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:layout_width="@dimen/icon_size_big"
             android:layout_height="@dimen/icon_size_big"
-            android:src="@drawable/icon"/>
+            android:src="@drawable/icon" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -30,34 +32,30 @@
                 android:layout_height="wrap_content"
                 android:text="Blood"
                 android:textColor="@color/primaryColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/text_size_28sp"/>
+                android:textSize="@dimen/text_size_28sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Donation"
                 android:layout_marginStart="@dimen/margin_5dp"
+                android:text="Donation"
                 android:textColor="@color/primaryTextColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/text_size_28sp"/>
+                android:textSize="@dimen/text_size_28sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="240dp"
+    <Button
+        android:id="@+id/startJourneyButton"
+        android:layout_width="@dimen/fragment_next_button_width"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp"
-        android:textColor="@color/white"
-        android:background="@drawable/button_background"
-        android:paddingTop="@dimen/margin_15dp"
-        android:paddingBottom="@dimen/margin_15dp"
+        style="@style/fragmentNextButtonStyle"
         android:text="Start Journey"
-        android:textAllCaps="false"
-        android:textSize="@dimen/text_size_22sp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
