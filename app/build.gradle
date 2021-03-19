@@ -44,4 +44,6 @@ dependencies {
 
     //viewPager2
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    //number picker
+    implementation 'com.shawnlin:number-picker:2.4.12'
 }
