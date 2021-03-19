@@ -5,4 +5,14 @@
     <string name="contactInformationHints">Please provide correct phone no. This information will keep safe</string>
     <string name="bloodGroupHints">Your blood group need to be accurate. If you don\'t know about it please contact nearest clinic</string>
     <string name="weightHints">Note: you can not donate blood if you\'re under weight minimum weight for donation requirement <b>50KG</b></string>
+    <string name="addressHints">Please provide correct address. This information will keep safe</string>
+    <string name="number_picker_formatter">%2d</string>
+    <!-- Font -->
+    <string name="roboto_regular">sans-serif</string>
+    <string name="roboto_light">sans-serif-light</string>
+    <string name="roboto_condensed">sans-serif-condensed</string>
+    <string name="roboto_thin">sans-serif-thin</string>
+    <string name="roboto_medium">sans-serif-medium</string>
+    <string name="sofia_soft">sofia-soft</string>
+    <string name="uploadImageHints">Please do not use a model or doll avatar. Please keep faith on yourself you\'re beautiful too.</string>
 </resources>

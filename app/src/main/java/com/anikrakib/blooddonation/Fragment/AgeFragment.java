@@ -81,11 +81,11 @@ public class AgeFragment extends Fragment {
             SignUpActivity.userDataModel.setYear((year-age));
             Log.d("data","Address:--"+SignUpActivity.userDataModel.toString());
 
-//            AgeFragment ageFragment = new AgeFragment();
-//            assert getFragmentManager() != null;
-//            getFragmentManager().beginTransaction()
-//                    .replace(SignUpActivity.activitySignUpBinding.container.getId(),ageFragment)
-//                    .commit();
+            UploadImageFragment uploadImageFragment = new UploadImageFragment();
+            assert getFragmentManager() != null;
+            getFragmentManager().beginTransaction()
+                    .replace(SignUpActivity.activitySignUpBinding.container.getId(),uploadImageFragment)
+                    .commit();
 
             Log.d("data","ALL Data:--"+ SignUpActivity.userDataModel.toString());
         });
