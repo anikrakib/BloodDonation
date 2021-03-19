@@ -37,6 +37,7 @@
             android:layout_marginTop="@dimen/margin_20dp">
             
             <androidx.cardview.widget.CardView
+                android:id="@+id/lessThanFiftyKg"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -44,6 +45,7 @@
                 app:cardCornerRadius="@dimen/margin_15dp"
                 android:elevation="@dimen/margin_5dp"
                 app:cardElevation="5dp"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:outlineAmbientShadowColor="@color/black"
                 app:cardUseCompatPadding="true"
                 app:contentPadding="1dp">
@@ -74,6 +76,7 @@
                         android:layout_centerHorizontal="true"/>
 
                     <TextView
+                        android:id="@+id/lessThanFifty"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="&#60; 50 KG"
@@ -90,11 +93,13 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/greaterThanFiftyKg"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:cardBackgroundColor="@color/textBoxBackgroundColor"
                 app:cardCornerRadius="@dimen/margin_15dp"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:elevation="@dimen/margin_5dp"
                 app:cardElevation="3dp"
                 android:outlineAmbientShadowColor="@color/black"
@@ -127,6 +132,7 @@
                         android:layout_centerHorizontal="true"/>
 
                     <TextView
+                        android:id="@+id/greaterThanFifty"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="&#62; 50 KG"
