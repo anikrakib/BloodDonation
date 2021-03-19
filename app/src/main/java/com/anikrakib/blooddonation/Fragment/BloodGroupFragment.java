@@ -66,16 +66,6 @@ public class BloodGroupFragment extends Fragment implements BloodGroupAdapter.On
             sendBundle.putString("social",receiveBundle.getString("social"));
             sendBundle.putString("bloodGroup",bloodGroup);
 
-            for (String key: sendBundle.keySet())
-            {
-                Log.d ("sendBundle", key + " is a key in the bundle");
-            }
-
-            for (String key: receiveBundle.keySet())
-            {
-                Log.d ("receiveBundle", key + " is a key in the bundle");
-            }
-
             WeightFragment weightFragment = new WeightFragment();
             weightFragment.setArguments(sendBundle);
             assert getFragmentManager() != null;

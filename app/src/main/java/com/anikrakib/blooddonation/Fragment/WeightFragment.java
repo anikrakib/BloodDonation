@@ -59,16 +59,6 @@ public class WeightFragment extends Fragment {
             sendBundle.putString("bloodGroup",receiveBundle.getString("bloodGroup"));
             sendBundle.putString("weight",weight);
 
-            for (String key: sendBundle.keySet())
-            {
-                Log.d ("sendBundle", key + " is a key in the bundle");
-            }
-
-            for (String key: receiveBundle.keySet())
-            {
-                Log.d ("receiveBundle", key + " is a key in the bundle");
-            }
-
             GenderFragment genderFragment = new GenderFragment();
             genderFragment.setArguments(sendBundle);
             assert getFragmentManager() != null;
