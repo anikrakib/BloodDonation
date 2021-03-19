@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,19 +47,13 @@ public class ContactInformationFragment extends Fragment {
 //            userDataModel.setPassword(bundle.getString("password"));
 //            detailFragmentListener.onDetailsFragment(userDataModel);
 
-            Bundle receiveBundle = this.getArguments();
-            Bundle sendBundle = new Bundle();
+            SignUpActivity.userDataModel.setPhoneNo(fragmentContactInformationBinding.phoneNo.getText().toString());
+            SignUpActivity.userDataModel.setAltPhoneNo(fragmentContactInformationBinding.altPhoneNo.getText().toString());
+            SignUpActivity.userDataModel.setSocialMediaLink(fragmentContactInformationBinding.social.getText().toString());
+            Log.d("data","Info:--"+SignUpActivity.userDataModel.toString());
 
-            assert receiveBundle != null;
-            sendBundle.putString("email",receiveBundle.getString("email"));
-            sendBundle.putString("useName",receiveBundle.getString("userName"));
-            sendBundle.putString("password",receiveBundle.getString("userName"));
-            sendBundle.putString("phoneNo",fragmentContactInformationBinding.phoneNo.getText().toString());
-            sendBundle.putString("altPhoneNo",fragmentContactInformationBinding.altPhoneNo.getText().toString());
-            sendBundle.putString("social",fragmentContactInformationBinding.social.getText().toString());
 
             BloodGroupFragment bloodGroupFragment = new BloodGroupFragment();
-            bloodGroupFragment.setArguments(sendBundle);
             assert getFragmentManager() != null;
             getFragmentManager().beginTransaction()
                     .replace(SignUpActivity.activitySignUpBinding.container.getId(),bloodGroupFragment)

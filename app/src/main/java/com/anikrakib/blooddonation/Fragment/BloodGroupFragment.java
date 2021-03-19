@@ -54,20 +54,12 @@ public class BloodGroupFragment extends Fragment implements BloodGroupAdapter.On
         fragmentBloodGroupBinding.bloodGroupRecyclerView.setAdapter(adapter);
 
         fragmentBloodGroupBinding.nextButton.setOnClickListener(v->{
-            Bundle receiveBundle = this.getArguments();
-            Bundle sendBundle = new Bundle();
 
-            assert receiveBundle != null;
-            sendBundle.putString("email",receiveBundle.getString("email"));
-            sendBundle.putString("useName",receiveBundle.getString("userName"));
-            sendBundle.putString("password",receiveBundle.getString("userName"));
-            sendBundle.putString("phoneNo",receiveBundle.getString("phoneNo"));
-            sendBundle.putString("altPhoneNo",receiveBundle.getString("altPhoneNo"));
-            sendBundle.putString("social",receiveBundle.getString("social"));
-            sendBundle.putString("bloodGroup",bloodGroup);
+            SignUpActivity.userDataModel.setBloodGroup(bloodGroup);
+            Log.d("data","BloodGroup:--"+SignUpActivity.userDataModel.toString());
+
 
             WeightFragment weightFragment = new WeightFragment();
-            weightFragment.setArguments(sendBundle);
             assert getFragmentManager() != null;
             getFragmentManager().beginTransaction()
                     .replace(SignUpActivity.activitySignUpBinding.container.getId(),weightFragment)

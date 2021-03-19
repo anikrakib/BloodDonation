@@ -46,21 +46,11 @@ public class WeightFragment extends Fragment {
         });
 
         fragmentWeightBinding.nextButton.setOnClickListener(v->{
-            Bundle receiveBundle = this.getArguments();
-            Bundle sendBundle = new Bundle();
+            SignUpActivity.userDataModel.setWeight(weight);
 
-            assert receiveBundle != null;
-            sendBundle.putString("email",receiveBundle.getString("email"));
-            sendBundle.putString("useName",receiveBundle.getString("userName"));
-            sendBundle.putString("password",receiveBundle.getString("userName"));
-            sendBundle.putString("phoneNo",receiveBundle.getString("phoneNo"));
-            sendBundle.putString("altPhoneNo",receiveBundle.getString("altPhoneNo"));
-            sendBundle.putString("social",receiveBundle.getString("social"));
-            sendBundle.putString("bloodGroup",receiveBundle.getString("bloodGroup"));
-            sendBundle.putString("weight",weight);
+            Log.d("data","Weight:--"+SignUpActivity.userDataModel.toString());
 
             GenderFragment genderFragment = new GenderFragment();
-            genderFragment.setArguments(sendBundle);
             assert getFragmentManager() != null;
             getFragmentManager().beginTransaction()
                     .replace(SignUpActivity.activitySignUpBinding.container.getId(),genderFragment)

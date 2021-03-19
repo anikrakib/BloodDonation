@@ -17,6 +17,7 @@ public class SignUpActivity extends AppCompatActivity implements DetailFragmentL
     final Fragment fragment = new AboutYouFragment();
     Fragment active = fragment;
     final FragmentManager fm = getSupportFragmentManager();
+    public static UserDataModel userDataModel = new UserDataModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

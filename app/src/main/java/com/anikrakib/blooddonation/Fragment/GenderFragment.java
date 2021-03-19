@@ -10,11 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.anikrakib.blooddonation.Activity.SignUpActivity;
+import com.anikrakib.blooddonation.Model.EnumClass.Gender;
 import com.anikrakib.blooddonation.R;
 import com.anikrakib.blooddonation.databinding.FragmentGenderBinding;
 
 public class GenderFragment extends Fragment {
     FragmentGenderBinding fragmentGenderBinding;
+    private static String gender;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,36 +29,27 @@ public class GenderFragment extends Fragment {
         // Inflate the layout for this fragment
         fragmentGenderBinding = FragmentGenderBinding.inflate(getLayoutInflater());
 
-        Bundle receiveBundle = this.getArguments();
-        Bundle sendBundle = new Bundle();
+        fragmentGenderBinding.genderMale.setOnClickListener(v->{
+            gender = Gender.MALE.getGender();
+        });
 
-        assert receiveBundle != null;
-        sendBundle.putString("email",receiveBundle.getString("email"));
-        sendBundle.putString("useName",receiveBundle.getString("userName"));
-        sendBundle.putString("password",receiveBundle.getString("userName"));
-        sendBundle.putString("phoneNo",receiveBundle.getString("phoneNo"));
-        sendBundle.putString("altPhoneNo",receiveBundle.getString("altPhoneNo"));
-        sendBundle.putString("social",receiveBundle.getString("social"));
-        sendBundle.putString("bloodGroup",receiveBundle.getString("bloodGroup"));
-        sendBundle.putString("weight",receiveBundle.getString("weight"));
+        fragmentGenderBinding.genderFemale.setOnClickListener(v->{
+            gender = Gender.FEMALE.getGender();
+        });
 
-        AddressFragment addressFragment = new AddressFragment();
-        addressFragment.setArguments(sendBundle);
-        assert getFragmentManager() != null;
-        getFragmentManager().beginTransaction()
-                .replace(SignUpActivity.activitySignUpBinding.container.getId(),addressFragment)
-                .commit();
+        fragmentGenderBinding.nextButton.setOnClickListener(v->{
 
+            SignUpActivity.userDataModel.setGender(gender);
 
-//        Log.d ("data", "email:"+receiveBundle.getString("email"));
-//        Log.d ("data", "useName:"+receiveBundle.getString("useName"));
-//        Log.d ("data", "password:"+receiveBundle.getString("password"));
-//        Log.d ("data", "phoneNo:"+receiveBundle.getString("phoneNo"));
-//        Log.d ("data", "altPhoneNo:"+receiveBundle.getString("altPhoneNo"));
-//        Log.d ("data", "social:"+receiveBundle.getString("social"));
-//        Log.d ("data", "bloodGroup:"+receiveBundle.getString("bloodGroup"));
-//        Log.d ("data", "weight:"+receiveBundle.getString("weight"));
+            Log.d("data","Gender:--"+SignUpActivity.userDataModel.toString());
 
+            AddressFragment addressFragment = new AddressFragment();
+            assert getFragmentManager() != null;
+            getFragmentManager().beginTransaction()
+                    .replace(SignUpActivity.activitySignUpBinding.container.getId(),addressFragment)
+                    .commit();
+
+        });
 
         return fragmentGenderBinding.getRoot();
     }

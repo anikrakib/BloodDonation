@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,12 +35,12 @@ public class AboutYouFragment extends Fragment {
 
         fragmentAboutYouBinding.nextButton.setOnClickListener(v->{
 
-            Bundle bundle = new Bundle();
-            bundle.putString("userName",fragmentAboutYouBinding.userName.getText().toString());
-            bundle.putString("email",fragmentAboutYouBinding.email.getText().toString());
-            bundle.putString("password",fragmentAboutYouBinding.password.getText().toString());
+            SignUpActivity.userDataModel.setUserName(fragmentAboutYouBinding.userName.getText().toString().trim());
+            SignUpActivity.userDataModel.setPassword(fragmentAboutYouBinding.password.getText().toString());
+            SignUpActivity.userDataModel.setEmail(fragmentAboutYouBinding.email.getText().toString());
+            Log.d("data","About:--"+SignUpActivity.userDataModel.toString());
+
             ContactInformationFragment contactInformationFragment = new ContactInformationFragment();
-            contactInformationFragment.setArguments(bundle);
             assert getFragmentManager() != null;
             getFragmentManager().beginTransaction()
                     .replace(SignUpActivity.activitySignUpBinding.container.getId(),contactInformationFragment)
