@@ -15,6 +15,7 @@ import com.anikrakib.blooddonation.Activity.SignUpActivity;
 import com.anikrakib.blooddonation.Model.EnumClass.BloodGroup;
 import com.anikrakib.blooddonation.Model.UserDataModel;
 import com.anikrakib.blooddonation.R;
+import com.anikrakib.blooddonation.Utills.HelperClass;
 import com.anikrakib.blooddonation.Utills.Interface.DetailFragmentListener;
 import com.anikrakib.blooddonation.databinding.FragmentContactInformationBinding;
 
@@ -35,29 +36,22 @@ public class ContactInformationFragment extends Fragment {
         fragmentContactInformationBinding = FragmentContactInformationBinding.inflate(getLayoutInflater());
 
         fragmentContactInformationBinding.nextButton.setOnClickListener(v->{
-//            UserDataModel userDataModel = new UserDataModel();
-//            Bundle bundle = this.getArguments();
-//
-//            userDataModel.setPhoneNo(fragmentContactInformationBinding.phoneNo.getText().toString());
-//            userDataModel.setAltPhoneNo(fragmentContactInformationBinding.altPhoneNo.getText().toString());
-//            userDataModel.setSocialMediaLink(fragmentContactInformationBinding.social.getText().toString());
-//            assert bundle != null;
-//            userDataModel.setEmail(bundle.getString("email"));
-//            userDataModel.setUserName(bundle.getString("userName"));
-//            userDataModel.setPassword(bundle.getString("password"));
-//            detailFragmentListener.onDetailsFragment(userDataModel);
 
-            SignUpActivity.userDataModel.setPhoneNo(fragmentContactInformationBinding.phoneNo.getText().toString());
-            SignUpActivity.userDataModel.setAltPhoneNo(fragmentContactInformationBinding.altPhoneNo.getText().toString());
-            SignUpActivity.userDataModel.setSocialMediaLink(fragmentContactInformationBinding.social.getText().toString());
-            Log.d("data","Info:--"+SignUpActivity.userDataModel.toString());
+            if(fragmentContactInformationBinding.phoneNo.getText().toString().isEmpty()){
+                HelperClass.snackBar("Phone Number Required!", R.color.primaryColor,getContext());
+            }else {
+                SignUpActivity.userDataModel.setPhoneNo(fragmentContactInformationBinding.phoneNo.getText().toString());
+                SignUpActivity.userDataModel.setAltPhoneNo(fragmentContactInformationBinding.altPhoneNo.getText().toString());
+                SignUpActivity.userDataModel.setSocialMediaLink(fragmentContactInformationBinding.social.getText().toString());
+                Log.d("data","Info:--"+SignUpActivity.userDataModel.toString());
 
-
-            BloodGroupFragment bloodGroupFragment = new BloodGroupFragment();
-            assert getFragmentManager() != null;
-            getFragmentManager().beginTransaction()
-                    .replace(SignUpActivity.activitySignUpBinding.container.getId(),bloodGroupFragment)
-                    .commit();
+                BloodGroupFragment bloodGroupFragment = new BloodGroupFragment();
+                assert getFragmentManager() != null;
+                getFragmentManager().beginTransaction()
+                        .replace(SignUpActivity.activitySignUpBinding.container.getId(),bloodGroupFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
         });
 
 

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.anikrakib.blooddonation.Activity.SignUpActivity;
 import com.anikrakib.blooddonation.Model.UserDataModel;
 import com.anikrakib.blooddonation.R;
+import com.anikrakib.blooddonation.Utills.HelperClass;
 import com.anikrakib.blooddonation.Utills.Interface.DetailFragmentListener;
 import com.anikrakib.blooddonation.databinding.FragmentAboutYouBinding;
 
@@ -35,16 +36,29 @@ public class AboutYouFragment extends Fragment {
 
         fragmentAboutYouBinding.nextButton.setOnClickListener(v->{
 
-            SignUpActivity.userDataModel.setUserName(fragmentAboutYouBinding.userName.getText().toString().trim());
-            SignUpActivity.userDataModel.setPassword(fragmentAboutYouBinding.password.getText().toString());
-            SignUpActivity.userDataModel.setEmail(fragmentAboutYouBinding.email.getText().toString());
-            Log.d("data","About:--"+SignUpActivity.userDataModel.toString());
+            if(fragmentAboutYouBinding.userName.getText().toString().isEmpty()){
+                HelperClass.snackBar("Username Can't Empty!", R.color.primaryColor,getContext());
+            }else {
+                if(fragmentAboutYouBinding.email.getText().toString().isEmpty()){
+                    HelperClass.snackBar("Email Can't Empty!", R.color.primaryColor,getContext());
+                }else {
+                    if(!fragmentAboutYouBinding.password.getText().toString().isEmpty() && fragmentAboutYouBinding.password.getText().toString().length() >= 8){
+                        SignUpActivity.userDataModel.setUserName(fragmentAboutYouBinding.userName.getText().toString().trim());
+                        SignUpActivity.userDataModel.setPassword(HelperClass.getHash(fragmentAboutYouBinding.password.getText().toString()));
+                        SignUpActivity.userDataModel.setEmail(fragmentAboutYouBinding.email.getText().toString());
+                        Log.d("data","About:--"+SignUpActivity.userDataModel.toString());
 
-            ContactInformationFragment contactInformationFragment = new ContactInformationFragment();
-            assert getFragmentManager() != null;
-            getFragmentManager().beginTransaction()
-                    .replace(SignUpActivity.activitySignUpBinding.container.getId(),contactInformationFragment)
-                    .commit();
+                        ContactInformationFragment contactInformationFragment = new ContactInformationFragment();
+                        assert getFragmentManager() != null;
+                        getFragmentManager().beginTransaction()
+                                .replace(SignUpActivity.activitySignUpBinding.container.getId(),contactInformationFragment)
+                                .addToBackStack(null)
+                                .commit();
+                    }else {
+                        HelperClass.snackBar("Password Must be 8 Character!", R.color.primaryColor,getContext());
+                    }
+                }
+            }
         });
 
         return fragmentAboutYouBinding.getRoot();

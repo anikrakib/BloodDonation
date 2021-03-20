@@ -16,6 +16,7 @@ import com.anikrakib.blooddonation.Adapter.BloodGroupAdapter;
 import com.anikrakib.blooddonation.Model.BloodGroupModel;
 import com.anikrakib.blooddonation.Model.EnumClass.BloodGroup;
 import com.anikrakib.blooddonation.R;
+import com.anikrakib.blooddonation.Utills.HelperClass;
 import com.anikrakib.blooddonation.databinding.FragmentBloodGroupBinding;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import java.util.List;
 
 public class BloodGroupFragment extends Fragment implements BloodGroupAdapter.OnBloodGroupCLickListener {
     FragmentBloodGroupBinding fragmentBloodGroupBinding;
-    private static String bloodGroup;
+    private static String bloodGroup = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,15 +56,20 @@ public class BloodGroupFragment extends Fragment implements BloodGroupAdapter.On
 
         fragmentBloodGroupBinding.nextButton.setOnClickListener(v->{
 
-            SignUpActivity.userDataModel.setBloodGroup(bloodGroup);
-            Log.d("data","BloodGroup:--"+SignUpActivity.userDataModel.toString());
+            if(bloodGroup.isEmpty()){
+                HelperClass.snackBar("Select Your Blood Group!", R.color.primaryColor,getContext());
+            }else {
+                SignUpActivity.userDataModel.setBloodGroup(bloodGroup);
+                Log.d("data","BloodGroup:--"+SignUpActivity.userDataModel.toString());
 
 
-            WeightFragment weightFragment = new WeightFragment();
-            assert getFragmentManager() != null;
-            getFragmentManager().beginTransaction()
-                    .replace(SignUpActivity.activitySignUpBinding.container.getId(),weightFragment)
-                    .commit();
+                WeightFragment weightFragment = new WeightFragment();
+                assert getFragmentManager() != null;
+                getFragmentManager().beginTransaction()
+                        .replace(SignUpActivity.activitySignUpBinding.container.getId(),weightFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
         });
 
 

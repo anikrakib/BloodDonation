@@ -18,7 +18,7 @@ public class WelComeActivity extends AppCompatActivity {
         setContentView(activityWelcomeBinding.getRoot());
 
         activityWelcomeBinding.startJourneyButton.setOnClickListener(v->{
-            startActivity(new Intent(getApplicationContext(),SignUpActivity.class));
+            startActivity(new Intent(getApplicationContext(),SignInActivity.class));
             finish();
         });
     }

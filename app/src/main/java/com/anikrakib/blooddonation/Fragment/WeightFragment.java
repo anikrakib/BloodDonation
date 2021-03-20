@@ -18,12 +18,13 @@ import android.view.animation.AnimationUtils;
 
 import com.anikrakib.blooddonation.Activity.SignUpActivity;
 import com.anikrakib.blooddonation.R;
+import com.anikrakib.blooddonation.Utills.HelperClass;
 import com.anikrakib.blooddonation.databinding.FragmentBloodGroupBinding;
 import com.anikrakib.blooddonation.databinding.FragmentWeightBinding;
 
 public class WeightFragment extends Fragment {
     FragmentWeightBinding fragmentWeightBinding;
-    private static String weight;
+    private static String weight = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,15 +47,22 @@ public class WeightFragment extends Fragment {
         });
 
         fragmentWeightBinding.nextButton.setOnClickListener(v->{
-            SignUpActivity.userDataModel.setWeight(weight);
 
-            Log.d("data","Weight:--"+SignUpActivity.userDataModel.toString());
+            if(weight.isEmpty() || weight.equals("< 50 KG")){
+                HelperClass.snackBar("Minimum weight required 50 KG !", R.color.primaryColor,getContext());
+            }else {
+                SignUpActivity.userDataModel.setWeight(weight);
 
-            GenderFragment genderFragment = new GenderFragment();
-            assert getFragmentManager() != null;
-            getFragmentManager().beginTransaction()
-                    .replace(SignUpActivity.activitySignUpBinding.container.getId(),genderFragment)
-                    .commit();
+                Log.d("data","Weight:--"+SignUpActivity.userDataModel.toString());
+
+                GenderFragment genderFragment = new GenderFragment();
+                assert getFragmentManager() != null;
+                getFragmentManager().beginTransaction()
+                        .replace(SignUpActivity.activitySignUpBinding.container.getId(),genderFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+
         });
 
         return fragmentWeightBinding.getRoot();

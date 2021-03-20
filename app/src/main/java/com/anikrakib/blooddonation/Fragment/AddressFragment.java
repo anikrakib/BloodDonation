@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.anikrakib.blooddonation.Activity.SignUpActivity;
 import com.anikrakib.blooddonation.R;
+import com.anikrakib.blooddonation.Utills.HelperClass;
 import com.anikrakib.blooddonation.databinding.FragmentAddressBinding;
 
 public class AddressFragment extends Fragment {
@@ -28,16 +29,30 @@ public class AddressFragment extends Fragment {
         fragmentAddressBinding = FragmentAddressBinding.inflate(getLayoutInflater());
 
         fragmentAddressBinding.nextButton.setOnClickListener(v->{
-            SignUpActivity.userDataModel.setStreetAddress(fragmentAddressBinding.streetAddress.getText().toString());
-            SignUpActivity.userDataModel.setCity(fragmentAddressBinding.city.getText().toString());
-            SignUpActivity.userDataModel.setPostalCode(fragmentAddressBinding.postalCode.getText().toString());
-            Log.d("data","Address:--"+SignUpActivity.userDataModel.toString());
 
-            AgeFragment ageFragment = new AgeFragment();
-            assert getFragmentManager() != null;
-            getFragmentManager().beginTransaction()
-                    .replace(SignUpActivity.activitySignUpBinding.container.getId(),ageFragment)
-                    .commit();
+            if(fragmentAddressBinding.streetAddress.getText().toString().isEmpty()){
+                HelperClass.snackBar("Street Address Required!", R.color.primaryColor,getContext());
+            }else {
+                if(fragmentAddressBinding.city.getText().toString().isEmpty()){
+                    HelperClass.snackBar("City Required!", R.color.primaryColor,getContext());
+                }else {
+                    if(fragmentAddressBinding.postalCode.getText().toString().isEmpty()){
+                        HelperClass.snackBar("Postal Code Required!", R.color.primaryColor,getContext());
+                    }else {
+                        SignUpActivity.userDataModel.setStreetAddress(fragmentAddressBinding.streetAddress.getText().toString());
+                        SignUpActivity.userDataModel.setCity(fragmentAddressBinding.city.getText().toString());
+                        SignUpActivity.userDataModel.setPostalCode(fragmentAddressBinding.postalCode.getText().toString());
+                        Log.d("data","Address:--"+SignUpActivity.userDataModel.toString());
+
+                        AgeFragment ageFragment = new AgeFragment();
+                        assert getFragmentManager() != null;
+                        getFragmentManager().beginTransaction()
+                                .replace(SignUpActivity.activitySignUpBinding.container.getId(),ageFragment)
+                                .addToBackStack(null)
+                                .commit();
+                    }
+                }
+            }
         });
 
         return fragmentAddressBinding.getRoot();

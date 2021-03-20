@@ -12,11 +12,12 @@ import android.view.ViewGroup;
 import com.anikrakib.blooddonation.Activity.SignUpActivity;
 import com.anikrakib.blooddonation.Model.EnumClass.Gender;
 import com.anikrakib.blooddonation.R;
+import com.anikrakib.blooddonation.Utills.HelperClass;
 import com.anikrakib.blooddonation.databinding.FragmentGenderBinding;
 
 public class GenderFragment extends Fragment {
     FragmentGenderBinding fragmentGenderBinding;
-    private static String gender;
+    private static String gender = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,15 +40,20 @@ public class GenderFragment extends Fragment {
 
         fragmentGenderBinding.nextButton.setOnClickListener(v->{
 
-            SignUpActivity.userDataModel.setGender(gender);
+            if(gender.isEmpty()){
+                HelperClass.snackBar("Select Your Gender!", R.color.primaryColor,getContext());
+            }else {
+                SignUpActivity.userDataModel.setGender(gender);
 
-            Log.d("data","Gender:--"+SignUpActivity.userDataModel.toString());
+                Log.d("data","Gender:--"+SignUpActivity.userDataModel.toString());
 
-            AddressFragment addressFragment = new AddressFragment();
-            assert getFragmentManager() != null;
-            getFragmentManager().beginTransaction()
-                    .replace(SignUpActivity.activitySignUpBinding.container.getId(),addressFragment)
-                    .commit();
+                AddressFragment addressFragment = new AddressFragment();
+                assert getFragmentManager() != null;
+                getFragmentManager().beginTransaction()
+                        .replace(SignUpActivity.activitySignUpBinding.container.getId(),addressFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
 
         });
 

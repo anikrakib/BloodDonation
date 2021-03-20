@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.anikrakib.blooddonation.Activity.SignUpActivity;
 import com.anikrakib.blooddonation.R;
+import com.anikrakib.blooddonation.Utills.HelperClass;
 import com.anikrakib.blooddonation.databinding.FragmentAgeBinding;
 import com.shawnlin.numberpicker.NumberPicker;
 
@@ -23,7 +24,7 @@ public class AgeFragment extends Fragment {
     FragmentAgeBinding fragmentAgeBinding;
     private static final String[] month = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     int age,date;
-    String monthName;
+    String monthName = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,23 +76,35 @@ public class AgeFragment extends Fragment {
         });
 
         fragmentAgeBinding.nextButton.setOnClickListener(v->{
-            SignUpActivity.userDataModel.setAge(age);
-            SignUpActivity.userDataModel.setDateOfMonth(date);
-            SignUpActivity.userDataModel.setNameOfMonth(monthName);
-            SignUpActivity.userDataModel.setYear((year-age));
-            Log.d("data","Address:--"+SignUpActivity.userDataModel.toString());
 
-            UploadImageFragment uploadImageFragment = new UploadImageFragment();
-            assert getFragmentManager() != null;
-            getFragmentManager().beginTransaction()
-                    .replace(SignUpActivity.activitySignUpBinding.container.getId(),uploadImageFragment)
-                    .commit();
+            if(age == 0){
+                HelperClass.snackBar("Select Your age !", R.color.primaryColor,getContext());
+            }else {
+                if(date == 0){
+                    HelperClass.snackBar("Select Your Birth Date!", R.color.primaryColor,getContext());
+                }else {
+                    if(monthName.isEmpty()){
+                        HelperClass.snackBar("Select Your Birth Month!", R.color.primaryColor,getContext());
+                    }else {
+                        SignUpActivity.userDataModel.setAge(age);
+                        SignUpActivity.userDataModel.setDateOfMonth(date);
+                        SignUpActivity.userDataModel.setNameOfMonth(monthName);
+                        SignUpActivity.userDataModel.setYear((year-age)-1);
+                        Log.d("data","Address:--"+SignUpActivity.userDataModel.toString());
 
-            Log.d("data","ALL Data:--"+ SignUpActivity.userDataModel.toString());
+                        UploadImageFragment uploadImageFragment = new UploadImageFragment();
+                        assert getFragmentManager() != null;
+                        getFragmentManager().beginTransaction()
+                                .replace(SignUpActivity.activitySignUpBinding.container.getId(),uploadImageFragment)
+                                .addToBackStack(null)
+                                .commit();
+
+                        Log.d("data","ALL Data:--"+ SignUpActivity.userDataModel.toString());
+                    }
+                }
+            }
+
         });
-
-
-
 
         return fragmentAgeBinding.getRoot();
     }
