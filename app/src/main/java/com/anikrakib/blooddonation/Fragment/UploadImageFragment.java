@@ -1,30 +1,48 @@
 package com.anikrakib.blooddonation.Fragment;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.ColorStateList;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.graphics.ColorUtils;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnticipateOvershootInterpolator;
 
+import com.anikrakib.blooddonation.Activity.MainActivity;
 import com.anikrakib.blooddonation.Activity.SignUpActivity;
 import com.anikrakib.blooddonation.R;
 import com.anikrakib.blooddonation.Utills.HelperClass;
 import com.anikrakib.blooddonation.databinding.FragmentUploadImageBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
+import com.ramijemli.percentagechartview.callback.AdaptiveColorProvider;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class UploadImageFragment extends Fragment {
@@ -32,6 +50,13 @@ public class UploadImageFragment extends Fragment {
     FirebaseAuth auth;
     FirebaseFirestore database;
     ProgressDialog dialog;
+    Uri uri;
+    String imageUri = "";
+    StorageTask uploadTask;
+    FirebaseStorage storage;
+    StorageReference storageReference;
+    private static final int INTENT_REQUEST_CODE = 100;
+
 
 
     @Override
@@ -40,7 +65,7 @@ public class UploadImageFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         fragmentUploadImageBinding = FragmentUploadImageBinding.inflate(getLayoutInflater());
@@ -49,49 +74,132 @@ public class UploadImageFragment extends Fragment {
         dialog.setMessage("Create an account");
         auth = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference("profile_pic");
 
-        fragmentUploadImageBinding.startJourneyButton.setOnClickListener(v->{
+        fragmentUploadImageBinding.uploadPhotoLayout.setOnClickListener(v->{
 
-            if(SignUpActivity.userDataModel.getEmail().isEmpty()){
-                HelperClass.snackBar("Your Email is empty", getResources().getColor(R.color.colorPrimary),getContext());
-            }else {
-                if(SignUpActivity.userDataModel.getPassword().isEmpty()) {
-                    HelperClass.snackBar("Your password is empty", getResources().getColor(R.color.colorPrimary),getContext());
-                }else {
-                    createUser();
-                }
+            if (ActivityCompat.checkSelfPermission(getContext(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+
+                Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(i, 100);
+            } else {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 44);
             }
 
+        });
+
+        fragmentUploadImageBinding.userProfilePic.setOnClickListener(v->{
+
+            if (ActivityCompat.checkSelfPermission(getContext(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+
+                Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(i, 100);
+            } else {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 44);
+            }
+
+        });
+
+        fragmentUploadImageBinding.startJourneyButton.setOnClickListener(v->{
+            createUser();
         });
 
         return fragmentUploadImageBinding.getRoot();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == INTENT_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                uri = data.getData();
+                //postInputStream = getActivity().getContentResolver().openInputStream(Objects.requireNonNull(data.getData()));
+                fragmentUploadImageBinding.userProfilePic.setImageURI(uri);
+                fragmentUploadImageBinding.uploadPhotoLayout.setVisibility(View.GONE);
+                fragmentUploadImageBinding.progressBar.setVisibility(View.VISIBLE);
+                Log.d("picture","Uri ->"+uri.toString());
+                upload();
+                //uploadProfilePic();
+            }
+        }
+
+    }
+
+    private void upload(){
+        if(uri!=null){
+            final StorageReference fileRef = storageReference.child(SignUpActivity.userDataModel.getUserName()+".jpg");
+            fileRef.putFile(uri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+                            {
+                                @Override
+                                public void onSuccess(Uri downloadUrl)
+                                {
+                                    SignUpActivity.userDataModel.setUserProfilePic(downloadUrl.toString());
+                                    Log.d("picture",downloadUrl.toString());
+                                    //do something with downloadurl
+                                }
+                            });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("picture",e.getMessage());
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                            double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                            Log.d("progress",progress+"");
+                            if(progress == 100.0) {
+                                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // Your Code
+                                        fragmentUploadImageBinding.userProfilePic.setVisibility(View.VISIBLE);
+                                        fragmentUploadImageBinding.progressBar.setVisibility(View.GONE);
+                                    }
+                                }, 1000);
+                            }
+                            else {
+                                fragmentUploadImageBinding.progressBar.setProgress((float) progress,true);
+                                fragmentUploadImageBinding.progressBar.setAnimationInterpolator(new AnticipateOvershootInterpolator());
+                                fragmentUploadImageBinding.progressBar.setAnimationDuration(100);
+                            }
+                        }
+                    });
+        }else {
+            Log.d("picture","noFileSelected");
+        }
+    }
+
     private void createUser(){
-        String email, pass, name, referCode;
-
-//        final User user = new User(name, email, Utils.getHash(pass));
-//        final PuzzleBestScore puzzleBestScore = new PuzzleBestScore();
-//        final NumberPuzzleBestScoreModel numberPuzzleBestScoreModel = new NumberPuzzleBestScoreModel();
-
-
-
         dialog.show();
-        auth.createUserWithEmailAndPassword(SignUpActivity.userDataModel.getEmail(), SignUpActivity.userDataModel.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        auth.createUserWithEmailAndPassword(SignUpActivity.userDataModel.getEmail(), HelperClass.getHash(SignUpActivity.userDataModel.getPassword())).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     String uid = Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getUser()).getUid();
+                    String password = SignUpActivity.userDataModel.getPassword();
+                    SignUpActivity.userDataModel.setPassword(HelperClass.getHash(password));
                     // create user Data Table
-                    database.collection("users")
+                    database.collection(HelperClass.USERS_COLLECTION_NAME)
                             .document(SignUpActivity.userDataModel.getUserName())
                             .set(SignUpActivity.userDataModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()) {
                                 dialog.dismiss();
-//                                startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
-//                                finish();
+                                startActivity(new Intent(getContext(), MainActivity.class));
+                                getActivity().finish();
                             } else {
                                 HelperClass.snackBar(Objects.requireNonNull(task.getException()).getLocalizedMessage(), R.color.colorPrimary,getContext());
                             }
@@ -104,6 +212,36 @@ public class UploadImageFragment extends Fragment {
                 }
             }
         });
+    }
 
+    // set progress bar animation
+    private void setupAnimation(float percentage) {
+        fragmentUploadImageBinding.progressBar.setAnimationInterpolator(new AnticipateOvershootInterpolator());
+        fragmentUploadImageBinding.progressBar.setAnimationDuration(2500);
+        fragmentUploadImageBinding.progressBar.setAdaptiveColorProvider(new AdaptiveColorProvider() {
+            @Override
+            public int provideProgressColor(float progress) {
+                String color;
+
+                if (progress <= 25)
+                    color = "#F44336";
+                else if (progress <= 50)
+                    color = "#9C27B0";
+                else if (progress <= 75)
+                    color = "#03A9F4";
+                else color = "#000000";
+
+                return Color.parseColor(color);
+            }
+
+            @Override
+            public int provideTextColor(float progress) {
+                return ColorUtils.blendARGB(provideProgressColor(progress), Color.WHITE, .6f);
+            }
+        });
+
+        //handler = new Handler();
+        fragmentUploadImageBinding.progressBar.setProgress(percentage,true);
+        //animate();
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,16 @@ public class AboutYouFragment extends Fragment {
         // Inflate the layout for this fragment
         fragmentAboutYouBinding = FragmentAboutYouBinding.inflate(getLayoutInflater());
 
+        fragmentAboutYouBinding.showOrHidePassword.setOnClickListener(v->{
+            if(fragmentAboutYouBinding.password.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD){
+                fragmentAboutYouBinding.showOrHidePassword.setImageResource(R.drawable.ic_red_eye);
+                fragmentAboutYouBinding.password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            }else {
+                fragmentAboutYouBinding.showOrHidePassword.setImageResource(R.drawable.ic_hide_password);
+                fragmentAboutYouBinding.password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            }
+        });
+
         fragmentAboutYouBinding.nextButton.setOnClickListener(v->{
 
             if(fragmentAboutYouBinding.userName.getText().toString().isEmpty()){
@@ -44,7 +55,7 @@ public class AboutYouFragment extends Fragment {
                 }else {
                     if(!fragmentAboutYouBinding.password.getText().toString().isEmpty() && fragmentAboutYouBinding.password.getText().toString().length() >= 8){
                         SignUpActivity.userDataModel.setUserName(fragmentAboutYouBinding.userName.getText().toString().trim());
-                        SignUpActivity.userDataModel.setPassword(HelperClass.getHash(fragmentAboutYouBinding.password.getText().toString()));
+                        SignUpActivity.userDataModel.setPassword(fragmentAboutYouBinding.password.getText().toString());
                         SignUpActivity.userDataModel.setEmail(fragmentAboutYouBinding.email.getText().toString());
                         Log.d("data","About:--"+SignUpActivity.userDataModel.toString());
 

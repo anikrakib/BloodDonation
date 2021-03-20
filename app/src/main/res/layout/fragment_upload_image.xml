@@ -15,7 +15,6 @@
         android:layout_marginEnd="@dimen/margin_10dp"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/nextButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -44,9 +43,11 @@
             app:contentPadding="1dp">
 
             <LinearLayout
+                android:id="@+id/uploadPhotoLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:visibility="visible"
                 android:orientation="vertical">
 
                 <ImageView
@@ -69,6 +70,29 @@
                     android:layout_marginBottom="@dimen/margin_20dp"/>
 
             </LinearLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/userProfilePic"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/male"
+                android:visibility="gone"/>
+
+            <com.ramijemli.percentagechartview.PercentageChartView
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:pcv_animDuration="750"
+                app:pcv_animInterpolator="anticipate_overshoot"
+                app:pcv_mode="ring"
+                android:visibility="gone"
+                android:layout_margin="@dimen/margin_20dp"
+                app:pcv_orientation="counter_clockwise"
+                app:pcv_progress="0"
+                app:pcv_backgroundBarColor="@color/navigationItemSelectedBackground"
+                app:pcv_progressColor="@color/primaryColor"
+                app:pcv_startAngle="-0"
+                app:pcv_textColor="@color/primaryColor" />
 
         </androidx.cardview.widget.CardView>
 

@@ -53,6 +53,16 @@ dependencies {
     // custom snackBar dependencies
     // min sdk 19 needed
     implementation 'com.github.kishandonga:custom-snackbar:1.1'
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    // circleImageView
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    //cropImage
+    //noinspection GradleDynamicVersion
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+    // Percentage Chart View dependencies
+    implementation 'com.ramijemli.percentagechartview:percentagechartview:0.3.1'
 
 
     // Import the Firebase BoM
