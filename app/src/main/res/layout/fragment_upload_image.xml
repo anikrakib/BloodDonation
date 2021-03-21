@@ -35,7 +35,7 @@
             android:layout_height="@dimen/margin_300dp"
             app:cardBackgroundColor="@color/textBoxBackgroundColor"
             app:cardCornerRadius="150dp"
-            android:elevation="@dimen/margin_5dp"
+            android:elevation="16dp"
             app:cardElevation="5dp"
             android:foreground="?android:attr/selectableItemBackground"
             android:outlineAmbientShadowColor="@color/black"

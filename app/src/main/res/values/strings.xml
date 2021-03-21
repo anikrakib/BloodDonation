@@ -16,4 +16,6 @@
     <string name="roboto_medium">sans-serif-medium</string>
     <string name="sofia_soft">sofia-soft</string>
     <string name="uploadImageHints">Please do not use a model or doll avatar. Please keep faith on yourself you\'re beautiful too.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

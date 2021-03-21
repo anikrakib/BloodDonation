@@ -190,6 +190,7 @@ public class UploadImageFragment extends Fragment {
                     String uid = Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getUser()).getUid();
                     String password = SignUpActivity.userDataModel.getPassword();
                     SignUpActivity.userDataModel.setPassword(HelperClass.getHash(password));
+                    SignUpActivity.userDataModel.setUserId(uid);
                     // create user Data Table
                     database.collection(HelperClass.USERS_COLLECTION_NAME)
                             .document(SignUpActivity.userDataModel.getUserName())
@@ -214,34 +215,4 @@ public class UploadImageFragment extends Fragment {
         });
     }
 
-    // set progress bar animation
-    private void setupAnimation(float percentage) {
-        fragmentUploadImageBinding.progressBar.setAnimationInterpolator(new AnticipateOvershootInterpolator());
-        fragmentUploadImageBinding.progressBar.setAnimationDuration(2500);
-        fragmentUploadImageBinding.progressBar.setAdaptiveColorProvider(new AdaptiveColorProvider() {
-            @Override
-            public int provideProgressColor(float progress) {
-                String color;
-
-                if (progress <= 25)
-                    color = "#F44336";
-                else if (progress <= 50)
-                    color = "#9C27B0";
-                else if (progress <= 75)
-                    color = "#03A9F4";
-                else color = "#000000";
-
-                return Color.parseColor(color);
-            }
-
-            @Override
-            public int provideTextColor(float progress) {
-                return ColorUtils.blendARGB(provideProgressColor(progress), Color.WHITE, .6f);
-            }
-        });
-
-        //handler = new Handler();
-        fragmentUploadImageBinding.progressBar.setProgress(percentage,true);
-        //animate();
-    }
 }

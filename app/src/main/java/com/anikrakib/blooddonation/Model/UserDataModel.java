@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class UserDataModel implements Parcelable {
+    private String userId;
     private String userName;
     private String email;
     private String password;
@@ -161,10 +162,19 @@ public class UserDataModel implements Parcelable {
         this.userProfilePic = userProfilePic;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "UserDataModel{" +
-                "userName='" + userName + '\'' +
+                "userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", phoneNo='" + phoneNo + '\'' +
@@ -192,6 +202,7 @@ public class UserDataModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.userId);
         dest.writeString(this.userName);
         dest.writeString(this.email);
         dest.writeString(this.password);
@@ -212,6 +223,7 @@ public class UserDataModel implements Parcelable {
     }
 
     public void readFromParcel(Parcel source) {
+        this.userId = source.readString();
         this.userName = source.readString();
         this.email = source.readString();
         this.password = source.readString();
@@ -232,6 +244,7 @@ public class UserDataModel implements Parcelable {
     }
 
     protected UserDataModel(Parcel in) {
+        this.userId = in.readString();
         this.userName = in.readString();
         this.email = in.readString();
         this.password = in.readString();
