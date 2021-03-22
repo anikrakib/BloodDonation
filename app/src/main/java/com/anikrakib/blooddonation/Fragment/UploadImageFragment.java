@@ -43,6 +43,8 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.ramijemli.percentagechartview.callback.AdaptiveColorProvider;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class UploadImageFragment extends Fragment {
@@ -51,8 +53,6 @@ public class UploadImageFragment extends Fragment {
     FirebaseFirestore database;
     ProgressDialog dialog;
     Uri uri;
-    String imageUri = "";
-    StorageTask uploadTask;
     FirebaseStorage storage;
     StorageReference storageReference;
     private static final int INTENT_REQUEST_CODE = 100;
@@ -198,6 +198,13 @@ public class UploadImageFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()) {
+                                Map<String, Object> setUserName = new HashMap<>();
+                                setUserName.put("userName", SignUpActivity.userDataModel.getUserName());
+
+                                database.collection("userName")
+                                        .document(uid)
+                                        .set(setUserName);
+
                                 dialog.dismiss();
                                 startActivity(new Intent(getContext(), MainActivity.class));
                                 getActivity().finish();

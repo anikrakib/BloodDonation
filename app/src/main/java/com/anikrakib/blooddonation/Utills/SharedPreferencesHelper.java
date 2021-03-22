@@ -4,9 +4,9 @@ import android.content.Context;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class SharedPreferences {
+public class SharedPreferencesHelper {
 
-    public SharedPreferences(Context context) {
+    public SharedPreferencesHelper(Context context) {
 
     }
 
@@ -20,4 +20,17 @@ public class SharedPreferences {
         android.content.SharedPreferences sharedPreferences = context.getSharedPreferences(HelperClass.SHARED_PREFERENCE_TAG, MODE_PRIVATE);
         return sharedPreferences.getBoolean(HelperClass.ON_BOARD, false);
     }
+
+    public static void setUserName(Context context, String userName) {
+        android.content.SharedPreferences sharedPreferences = context.getSharedPreferences(HelperClass.SHARED_PREFERENCE_TAG, MODE_PRIVATE);
+        android.content.SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("userName", userName).apply();
+    }
+
+    public static String getUserName(Context context) {
+        android.content.SharedPreferences userPref = context.getSharedPreferences(HelperClass.SHARED_PREFERENCE_TAG, Context.MODE_PRIVATE);
+
+        return userPref.getString("userName",null);
+    }
 }
+

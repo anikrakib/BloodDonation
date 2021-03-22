@@ -13,8 +13,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.anikrakib.blooddonation.Adapter.OnBoardingAdapter;
 import com.anikrakib.blooddonation.Model.OnBoardingItem;
 import com.anikrakib.blooddonation.R;
-import com.anikrakib.blooddonation.Utills.HelperClass;
-import com.anikrakib.blooddonation.Utills.SharedPreferences;
+import com.anikrakib.blooddonation.Utills.SharedPreferencesHelper;
 import com.anikrakib.blooddonation.databinding.ActivityOnBoardingBinding;
 
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ public class OnBoardingActivity extends AppCompatActivity {
         activityOnBoardingBinding = ActivityOnBoardingBinding.inflate(getLayoutInflater());
         setContentView(activityOnBoardingBinding.getRoot());
 
-        if(SharedPreferences.getOnBoardCompleteOrNot(getApplicationContext())){
+        if(SharedPreferencesHelper.getOnBoardCompleteOrNot(getApplicationContext())){
             startActivity(new Intent(getApplicationContext(),WelComeActivity.class));
             finish();
         }else {

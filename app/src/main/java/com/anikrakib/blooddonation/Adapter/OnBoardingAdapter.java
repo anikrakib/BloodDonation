@@ -19,7 +19,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.anikrakib.blooddonation.Activity.WelComeActivity;
 import com.anikrakib.blooddonation.Model.OnBoardingItem;
 import com.anikrakib.blooddonation.R;
-import com.anikrakib.blooddonation.Utills.SharedPreferences;
+import com.anikrakib.blooddonation.Utills.SharedPreferencesHelper;
 
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class OnBoardingAdapter extends RecyclerView.Adapter<OnBoardingAdapter.Om
                 onBoardingViewPager.setCurrentItem(position+1);
             }
             if(holder.button.getText().toString().equals("Start")){
-                SharedPreferences.setOnBoardCompleteOrNot(context,true);
+                SharedPreferencesHelper.setOnBoardCompleteOrNot(context,true);
                 Intent intent = new Intent(context, WelComeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
