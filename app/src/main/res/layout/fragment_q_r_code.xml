@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".Fragment.Profile.QRCodeFragment">
+
+    <TextView
+        android:id="@+id/userFullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Anik Rakib"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_size_35sp"
+        android:textColor="@color/primaryTextColor"/>
+
+    <TextView
+        android:id="@+id/userId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID: 124358841"
+        android:textSize="@dimen/text_size_18sp"
+        android:textColor="@color/secondaryTextColor"
+        android:layout_marginTop="@dimen/margin_5dp"/>
+
+    <ImageView
+        android:id="@+id/qrCode"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_marginTop="@dimen/margin_25dp"
+        app:tint="@color/qrCodeColor"/>
+
+</LinearLayout>
