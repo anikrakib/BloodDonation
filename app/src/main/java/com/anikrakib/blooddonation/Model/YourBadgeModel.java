@@ -1,16 +1,16 @@
 package com.anikrakib.blooddonation.Model;
 
 public class YourBadgeModel {
-    private String badgeID;
+    private String badgeId;
 
     public YourBadgeModel() {
     }
 
     public String getBadgeID() {
-        return badgeID;
+        return badgeId;
     }
 
     public void setBadgeID(String badgeID) {
-        this.badgeID = badgeID;
+        this.badgeId = badgeID;
     }
 }

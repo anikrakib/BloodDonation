@@ -3,10 +3,12 @@ package com.anikrakib.blooddonation.Utills;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.anikrakib.blooddonation.Activity.SignInActivity;
 import com.anikrakib.blooddonation.R;
@@ -21,7 +23,12 @@ import com.kishandonga.csbx.CustomSnackbar;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,6 +43,8 @@ public class HelperClass {
     public static final String YOUR_BADGES = "yourBadges";
     public static final String USERS_PROFILE_PICTURE_FOLDER_NAME = "profile_pic";
     public static String data;
+    @SuppressLint("ConstantLocale")
+    public static final SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy", Locale.getDefault());
 
     public static void snackBar(String text, int color, Context context){
         CustomSnackbar sb = new CustomSnackbar(context);
@@ -75,6 +84,25 @@ public class HelperClass {
         return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static long getBloodDayRemaining(String giveBloodDate, String currentDate) {
+        long diff = 0;
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat myFormat = new SimpleDateFormat("dd MM yyyy");
+
+        try {
+            Date date1 = myFormat.parse(currentDate);
+            Date date2 = myFormat.parse(giveBloodDate);
+            assert date2 != null;
+            assert date1 != null;
+            diff = date2.getTime() - date1.getTime();
+            Log.d("date","Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+            //System.out.println ();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+    }
 
 
 }

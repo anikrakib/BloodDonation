@@ -1,16 +1,16 @@
 package com.anikrakib.blooddonation.Model;
 
 public class DonateBloodHistoryModel {
-    private int date;
+    private String date;
 
     public DonateBloodHistoryModel() {
     }
 
-    public int getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

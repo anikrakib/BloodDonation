@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     FragmentManager fragmentManager;
     FirebaseAuth auth;
     FirebaseFirestore database;
-    private static String userName = "";
+    public static String userName = "";
 
 
     @Override
