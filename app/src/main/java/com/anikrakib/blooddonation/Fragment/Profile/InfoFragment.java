@@ -33,6 +33,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -54,6 +55,7 @@ import java.util.Objects;
 public class InfoFragment extends Fragment {
     FragmentInfoBinding fragmentInfoBinding;
     FirebaseFirestore database;
+    FirebaseAuth auth;
     public static String lastDonateBloodDate = "";
 
     @Override
@@ -69,6 +71,7 @@ public class InfoFragment extends Fragment {
         // Inflate the layout for this fragment
         fragmentInfoBinding = FragmentInfoBinding.inflate(getLayoutInflater());
         database = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
         getDonateBloodInfo();
 
 
@@ -108,7 +111,7 @@ public class InfoFragment extends Fragment {
         database.collection(HelperClass.USERS_COLLECTION_NAME)
                 .document(MainActivity.userName)
                 .collection(HelperClass.LAST_BLOOD_DONATE_HISTORY)
-                .document("fAw9CxJbLwQAw5jJ7PbY")
+                .document(Objects.requireNonNull(auth.getCurrentUser()).getUid())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @RequiresApi(api = Build.VERSION_CODES.O)

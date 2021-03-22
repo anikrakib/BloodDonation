@@ -209,7 +209,7 @@ public class UploadImageFragment extends Fragment {
 
                                 dialog.dismiss();
                                 startActivity(new Intent(getContext(), MainActivity.class));
-                                getActivity().finish();
+                                Objects.requireNonNull(getActivity()).finish();
                             } else {
                                 HelperClass.snackBar(Objects.requireNonNull(task.getException()).getLocalizedMessage(), R.color.colorPrimary,getContext());
                             }
@@ -219,7 +219,7 @@ public class UploadImageFragment extends Fragment {
                     database.collection(HelperClass.USERS_COLLECTION_NAME)
                             .document(SignUpActivity.userDataModel.getUserName())
                             .collection(HelperClass.LAST_BLOOD_DONATE_HISTORY)
-                            .document()
+                            .document(Objects.requireNonNull(auth.getCurrentUser()).getUid())
                             .set(donateBloodHistoryModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

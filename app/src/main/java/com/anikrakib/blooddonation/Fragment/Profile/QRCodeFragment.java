@@ -2,6 +2,7 @@ package com.anikrakib.blooddonation.Fragment.Profile;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -19,6 +20,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.anikrakib.blooddonation.Activity.SignInActivity;
 import com.anikrakib.blooddonation.Utills.HelperClass;
 import com.anikrakib.blooddonation.Utills.SharedPreferencesHelper;
 import com.anikrakib.blooddonation.databinding.FragmentQRCodeBinding;
@@ -78,6 +80,12 @@ public class QRCodeFragment extends Fragment {
                 }
             });
 
+        });
+
+        fragmentQRCodeBinding.signOut.setOnClickListener(v->{
+            auth.signOut();
+            startActivity(new Intent(getContext(), SignInActivity.class));
+            Objects.requireNonNull(getActivity()).finish();
         });
 
         return fragmentQRCodeBinding.getRoot();
