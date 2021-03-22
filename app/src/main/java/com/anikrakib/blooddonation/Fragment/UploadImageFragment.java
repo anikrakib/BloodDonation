@@ -26,6 +26,8 @@ import android.view.animation.AnticipateOvershootInterpolator;
 
 import com.anikrakib.blooddonation.Activity.MainActivity;
 import com.anikrakib.blooddonation.Activity.SignUpActivity;
+import com.anikrakib.blooddonation.Model.DonateBloodHistoryModel;
+import com.anikrakib.blooddonation.Model.YourBadgeModel;
 import com.anikrakib.blooddonation.R;
 import com.anikrakib.blooddonation.Utills.HelperClass;
 import com.anikrakib.blooddonation.databinding.FragmentUploadImageBinding;
@@ -213,6 +215,37 @@ public class UploadImageFragment extends Fragment {
                             }
                         }
                     });
+                    DonateBloodHistoryModel donateBloodHistoryModel = new DonateBloodHistoryModel();
+                    database.collection(HelperClass.USERS_COLLECTION_NAME)
+                            .document(SignUpActivity.userDataModel.getUserName())
+                            .collection(HelperClass.LAST_BLOOD_DONATE_HISTORY)
+                            .document()
+                            .set(donateBloodHistoryModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()) {
+                                Log.d("createTable","SuccessFull");
+                            } else  {
+                                Log.d("createTable","Un SuccessFull");
+                            }
+                        }
+                    });
+                    YourBadgeModel yourBadgeModel = new YourBadgeModel();
+                    database.collection(HelperClass.USERS_COLLECTION_NAME)
+                            .document(SignUpActivity.userDataModel.getUserName())
+                            .collection(HelperClass.YOUR_BADGES)
+                            .document()
+                            .set(yourBadgeModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()) {
+                                Log.d("createTable","SuccessFull");
+                            } else  {
+                                Log.d("createTable","Un SuccessFull");
+                            }
+                        }
+                    });
+
 
                 } else {
                     dialog.dismiss();

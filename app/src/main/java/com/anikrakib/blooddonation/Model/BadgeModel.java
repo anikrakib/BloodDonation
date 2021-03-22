@@ -3,6 +3,7 @@ package com.anikrakib.blooddonation.Model;
 public class BadgeModel {
     private String badgeIcon;
     private String badgeName;
+    private String badgeId;
 
     public BadgeModel() {
     }
@@ -23,5 +24,11 @@ public class BadgeModel {
         this.badgeName = badgeName;
     }
 
+    public String getBadgeId() {
+        return badgeId;
+    }
 
+    public void setBadgeId(String badgeId) {
+        this.badgeId = badgeId;
+    }
 }

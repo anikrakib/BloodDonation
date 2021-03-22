@@ -1,14 +1,18 @@
 package com.anikrakib.blooddonation.Fragment.Profile;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
@@ -17,11 +21,17 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anikrakib.blooddonation.Adapter.Profile.BadgesAdapter;
 import com.anikrakib.blooddonation.Adapter.Profile.ViewDonationRequestsPagerAdapter;
 import com.anikrakib.blooddonation.Adapter.Profile.ViewInfoContatctPagerAdapter;
 import com.anikrakib.blooddonation.Model.BadgeModel;
+import com.anikrakib.blooddonation.R;
 import com.anikrakib.blooddonation.Utills.HelperClass;
 import com.anikrakib.blooddonation.Utills.SharedPreferencesHelper;
 import com.anikrakib.blooddonation.databinding.FragmentMainProfileDataBinding;
@@ -39,12 +49,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainProfileDataFragment extends Fragment {
     FragmentMainProfileDataBinding fragmentMainProfileDataBinding;
     FirebaseFirestore database;
     FirebaseAuth auth;
     private static String userName = "";
+    Dialog dialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,11 +73,16 @@ public class MainProfileDataFragment extends Fragment {
 
         database = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
-
+        dialog = new  Dialog(getContext());
 
         /////*     initialize ViewPager   */////
-        ViewDonationRequestsPagerAdapter viewDonationRequestsPagerAdapter = new ViewDonationRequestsPagerAdapter(getActivity().getSupportFragmentManager(),fragmentMainProfileDataBinding);
-        ViewInfoContatctPagerAdapter ViewInfoContatctPagerAdapter = new ViewInfoContatctPagerAdapter(getActivity().getSupportFragmentManager(),fragmentMainProfileDataBinding);
+        ViewDonationRequestsPagerAdapter viewDonationRequestsPagerAdapter = new ViewDonationRequestsPagerAdapter(
+                Objects.requireNonNull(getActivity())
+                        .getSupportFragmentManager(),fragmentMainProfileDataBinding);
+
+        ViewInfoContatctPagerAdapter ViewInfoContatctPagerAdapter = new ViewInfoContatctPagerAdapter(
+                getActivity()
+                        .getSupportFragmentManager(),fragmentMainProfileDataBinding);
 
         fragmentMainProfileDataBinding.viewPager.setAdapter(viewDonationRequestsPagerAdapter);
         fragmentMainProfileDataBinding.slidingTabs.setupWithViewPager(fragmentMainProfileDataBinding.viewPager);
@@ -152,6 +169,7 @@ public class MainProfileDataFragment extends Fragment {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         badgeModels.clear();
+                        assert value != null;
                         for (DocumentSnapshot snapshot : value.getDocuments()) {
                             BadgeModel model = snapshot.toObject(BadgeModel.class);
                             badgeModels.add(model);
@@ -171,9 +189,8 @@ public class MainProfileDataFragment extends Fragment {
 
 
     public void getUserName(){
-
         database.collection("userName")
-                .document(auth.getCurrentUser().getUid())
+                .document(Objects.requireNonNull(auth.getCurrentUser()).getUid())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @SuppressLint("SetTextI18n")
@@ -196,19 +213,21 @@ public class MainProfileDataFragment extends Fragment {
                                                     if (document != null) {
                                                         String userProfilePic = document.getString("userProfilePic");
                                                         String userName = document.getString("userName");
+                                                        String userFullName = document.getString("userFullName");
                                                         String bloodGroup = document.getString("bloodGroup");
 
-                                                        Glide.with(getActivity())
+                                                        Glide.with(Objects.requireNonNull(getActivity()))
                                                                 .load(userProfilePic)
                                                                 .into(fragmentMainProfileDataBinding.userImage);
-                                                        fragmentMainProfileDataBinding.fullName.setText(userName);
+                                                        fragmentMainProfileDataBinding.fullName.setText(userFullName);
                                                         fragmentMainProfileDataBinding.BloodGroup.setText(bloodGroup);
-
-                                                    } else {
-                                                        Log.d("userInfo", "No such document");
                                                     }
+
+                                                } else {
+                                                    Log.d("userInfo", "No such document");
                                                 }
                                             }
+
                                         });
 
                             } else {
@@ -223,4 +242,5 @@ public class MainProfileDataFragment extends Fragment {
                     }
                 });
     }
+
 }

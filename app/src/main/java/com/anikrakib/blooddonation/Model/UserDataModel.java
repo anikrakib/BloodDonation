@@ -6,6 +6,7 @@ import android.os.Parcelable;
 public class UserDataModel implements Parcelable {
     private String userId;
     private String userName;
+    private String userFullName;
     private String email;
     private String password;
     private String phoneNo;
@@ -19,6 +20,7 @@ public class UserDataModel implements Parcelable {
     private String postalCode;
     private int age;
     private int dateOfMonth;
+    private int totalDonateBlood;
     private String nameOfMonth;
     private int year;
     private String userProfilePic;
@@ -170,11 +172,28 @@ public class UserDataModel implements Parcelable {
         this.userId = userId;
     }
 
+    public String getUserFullName() {
+        return userFullName;
+    }
+
+    public void setUserFullName(String userFullName) {
+        this.userFullName = "";
+    }
+
+    public int getTotalDonateBlood() {
+        return totalDonateBlood;
+    }
+
+    public void setTotalDonateBlood(int totalDonateBlood) {
+        this.totalDonateBlood = totalDonateBlood;
+    }
+
     @Override
     public String toString() {
         return "UserDataModel{" +
                 "userId='" + userId + '\'' +
                 ", userName='" + userName + '\'' +
+                ", userFullName='" + userFullName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", phoneNo='" + phoneNo + '\'' +
@@ -188,6 +207,7 @@ public class UserDataModel implements Parcelable {
                 ", postalCode='" + postalCode + '\'' +
                 ", age=" + age +
                 ", dateOfMonth=" + dateOfMonth +
+                ", totalDonateBlood=" + totalDonateBlood +
                 ", nameOfMonth='" + nameOfMonth + '\'' +
                 ", year=" + year +
                 ", userProfilePic='" + userProfilePic + '\'' +
@@ -204,6 +224,7 @@ public class UserDataModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.userId);
         dest.writeString(this.userName);
+        dest.writeString(this.userFullName);
         dest.writeString(this.email);
         dest.writeString(this.password);
         dest.writeString(this.phoneNo);
@@ -217,6 +238,7 @@ public class UserDataModel implements Parcelable {
         dest.writeString(this.postalCode);
         dest.writeInt(this.age);
         dest.writeInt(this.dateOfMonth);
+        dest.writeInt(this.totalDonateBlood);
         dest.writeString(this.nameOfMonth);
         dest.writeInt(this.year);
         dest.writeString(this.userProfilePic);
@@ -225,6 +247,7 @@ public class UserDataModel implements Parcelable {
     public void readFromParcel(Parcel source) {
         this.userId = source.readString();
         this.userName = source.readString();
+        this.userFullName = source.readString();
         this.email = source.readString();
         this.password = source.readString();
         this.phoneNo = source.readString();
@@ -238,6 +261,7 @@ public class UserDataModel implements Parcelable {
         this.postalCode = source.readString();
         this.age = source.readInt();
         this.dateOfMonth = source.readInt();
+        this.totalDonateBlood = source.readInt();
         this.nameOfMonth = source.readString();
         this.year = source.readInt();
         this.userProfilePic = source.readString();
@@ -246,6 +270,7 @@ public class UserDataModel implements Parcelable {
     protected UserDataModel(Parcel in) {
         this.userId = in.readString();
         this.userName = in.readString();
+        this.userFullName = in.readString();
         this.email = in.readString();
         this.password = in.readString();
         this.phoneNo = in.readString();
@@ -259,6 +284,7 @@ public class UserDataModel implements Parcelable {
         this.postalCode = in.readString();
         this.age = in.readInt();
         this.dateOfMonth = in.readInt();
+        this.totalDonateBlood = in.readInt();
         this.nameOfMonth = in.readString();
         this.year = in.readInt();
         this.userProfilePic = in.readString();

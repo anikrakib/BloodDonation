@@ -31,6 +31,9 @@ public class HelperClass {
     public static final String ON_BOARD = "onBoard";
     public static final String USERNAME = "userName";
     public static final String USERS_COLLECTION_NAME = "users";
+    public static final String LAST_BLOOD_DONATE_HISTORY = "lastBloodDonateHistory";
+    public static final String BADGES = "badges";
+    public static final String YOUR_BADGES = "yourBadges";
     public static final String USERS_PROFILE_PICTURE_FOLDER_NAME = "profile_pic";
     public static String data;
 

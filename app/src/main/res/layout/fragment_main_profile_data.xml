@@ -12,7 +12,6 @@
         android:layout_height="150dp"
         android:layout_marginTop="10dp"
         android:scaleType="fitXY"
-        android:src="@drawable/random"
         app:riv_corner_radius_bottom_left="@dimen/margin_15dp"
         app:riv_corner_radius_bottom_right="@dimen/margin_15dp"
         app:riv_corner_radius_top_left="@dimen/margin_15dp"
@@ -45,7 +44,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
-                android:text="Anik Rakib"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_40sp" />
 
@@ -68,7 +66,6 @@
         android:layout_height="80dp"
         android:fontFamily="@font/roboto_bold"
         android:background="@drawable/blood_drop"
-        android:text="A+"
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_25sp"
