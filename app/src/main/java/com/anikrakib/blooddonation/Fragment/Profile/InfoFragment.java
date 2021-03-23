@@ -129,14 +129,17 @@ public class InfoFragment extends Fragment {
                                 SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy", Locale.getDefault());
                                 String currentDate = sdf.format(calendar.getTime());
 
-                                long dayPassed = HelperClass.getBloodDayRemaining(currentDate,lastDonateBloodDate);
-
-                                fragmentInfoBinding.bloodDonateRemainingProgressbar.setProgress((Math.toIntExact(dayPassed)+10));
-                                if(90-Math.toIntExact(dayPassed) <= 0){
-                                    fragmentInfoBinding.remainDate.setText(getResources().getString(R.string.freeToDonateBlood));
-                                    fragmentInfoBinding.text.setVisibility(View.GONE);
-                                }else {
-                                    fragmentInfoBinding.remainDate.setText(String.valueOf(90-Math.toIntExact(dayPassed)));
+                                try {
+                                    long dayPassed = HelperClass.getBloodDayRemaining(currentDate,lastDonateBloodDate);
+                                    fragmentInfoBinding.bloodDonateRemainingProgressbar.setProgress((Math.toIntExact(dayPassed)+10));
+                                    if(90-Math.toIntExact(dayPassed) <= 0){
+                                        fragmentInfoBinding.remainDate.setText(getResources().getString(R.string.freeToDonateBlood));
+                                        fragmentInfoBinding.text.setVisibility(View.GONE);
+                                    }else {
+                                        fragmentInfoBinding.remainDate.setText(String.valueOf(90-Math.toIntExact(dayPassed)));
+                                    }
+                                }catch (Exception e){
+                                    e.printStackTrace();
                                 }
 
                             } else {

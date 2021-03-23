@@ -1,20 +1,19 @@
-package com.anikrakib.blooddonation.Fragment.Profile;
-
-import android.os.Bundle;
+package com.anikrakib.blooddonation.Activity;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.os.Bundle;
+import android.util.Log;
 
+import com.anikrakib.blooddonation.Adapter.Notification.NotificationAdapter;
 import com.anikrakib.blooddonation.Adapter.UrgentRequestAdapter;
+import com.anikrakib.blooddonation.Model.BadgeModel;
 import com.anikrakib.blooddonation.Model.BloodRequestModel;
 import com.anikrakib.blooddonation.R;
 import com.anikrakib.blooddonation.Utills.HelperClass;
-import com.anikrakib.blooddonation.databinding.FragmentRequestsBinding;
+import com.anikrakib.blooddonation.databinding.ActivityUrgentRequestBinding;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -24,25 +23,20 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RequestsFragment extends Fragment {
-    FragmentRequestsBinding fragmentRequestsBinding;
+public class UrgentRequestActivity extends AppCompatActivity {
+    ActivityUrgentRequestBinding activityUrgentRequestBinding;
     FirebaseFirestore database;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        fragmentRequestsBinding = FragmentRequestsBinding.inflate(getLayoutInflater());
+        activityUrgentRequestBinding = ActivityUrgentRequestBinding.inflate(getLayoutInflater());
+        setContentView(activityUrgentRequestBinding.getRoot());
 
         database = FirebaseFirestore.getInstance();
 
         final List<BloodRequestModel> bloodRequestModels = new ArrayList<>();
-        final UrgentRequestAdapter adapter = new UrgentRequestAdapter(getContext(), bloodRequestModels);
+        final UrgentRequestAdapter adapter = new UrgentRequestAdapter(getApplicationContext(), bloodRequestModels);
 
         database.collection(HelperClass.REQUEST_FOR_BLOOD)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -60,9 +54,8 @@ public class RequestsFragment extends Fragment {
                 });
 
 
-        fragmentRequestsBinding.requestedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        fragmentRequestsBinding.requestedRecyclerView.setAdapter(adapter);
+        activityUrgentRequestBinding.requestedRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        activityUrgentRequestBinding.requestedRecyclerView.setAdapter(adapter);
 
-        return fragmentRequestsBinding.getRoot();
     }
 }

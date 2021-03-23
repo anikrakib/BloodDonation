@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 
 import com.anikrakib.blooddonation.Activity.BloodRequest;
 import com.anikrakib.blooddonation.Activity.MainActivity;
+import com.anikrakib.blooddonation.Activity.UrgentRequestActivity;
 import com.anikrakib.blooddonation.Adapter.Home.BannerPagerAdapter;
 import com.anikrakib.blooddonation.Adapter.Profile.BadgesAdapter;
 import com.anikrakib.blooddonation.Model.BadgeModel;
@@ -107,6 +108,10 @@ public class HomeFragment extends Fragment {
 
         fragmentHomeBinding.postRequest.setOnClickListener(v->{
             startActivity(new Intent(getContext(),BloodRequest.class));
+        });
+
+        fragmentHomeBinding.urgentRequest.setOnClickListener(v->{
+            startActivity(new Intent(getContext(), UrgentRequestActivity.class));
         });
 
         return fragmentHomeBinding.getRoot();
