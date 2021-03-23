@@ -1,5 +1,7 @@
 package com.anikrakib.blooddonation.Fragment.Home;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.anikrakib.blooddonation.Activity.BloodRequest;
 import com.anikrakib.blooddonation.Activity.MainActivity;
 import com.anikrakib.blooddonation.Adapter.Home.BannerPagerAdapter;
 import com.anikrakib.blooddonation.Adapter.Profile.BadgesAdapter;
@@ -102,21 +105,8 @@ public class HomeFragment extends Fragment {
             }
         },4000,4000);
 
-        fragmentHomeBinding.bannerViwPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
+        fragmentHomeBinding.postRequest.setOnClickListener(v->{
+            startActivity(new Intent(getContext(),BloodRequest.class));
         });
 
         return fragmentHomeBinding.getRoot();
