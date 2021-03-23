@@ -71,6 +71,8 @@ dependencies {
     implementation 'com.google.zxing:core:3.3.2'
     //rounded ImageView
     implementation 'com.makeramen:roundedimageview:2.3.0'
+    //circleIndicator for ViewPager
+    implementation 'me.relex:circleindicator:2.1.4'
 
 
     // Import the Firebase BoM
