@@ -138,7 +138,7 @@ public class QRCodeFragment extends Fragment {
                                                             fragmentQRCodeBinding.userFullName.setVisibility(View.VISIBLE);
                                                             fragmentQRCodeBinding.save.setVisibility(View.GONE);
                                                         }
-                                                        fragmentQRCodeBinding.userId.setText("ID\n"+userID);
+                                                        fragmentQRCodeBinding.userId.setText("ID\n"+auth.getCurrentUser().getUid());
                                                         generateQrCode(imageUrl);
                                                     } else {
                                                         Log.d("userInfo", "No such document");

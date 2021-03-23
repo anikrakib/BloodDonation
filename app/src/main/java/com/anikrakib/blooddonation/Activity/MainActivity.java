@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                             DocumentSnapshot document = task.getResult();
                             if (document != null) {
                                 userName = document.getString("userName");
-                                Log.d("username",userName);
+                               // Log.d("username",userName);
                             } else {
                                 Log.d("userInfo", "No such document");
                             }

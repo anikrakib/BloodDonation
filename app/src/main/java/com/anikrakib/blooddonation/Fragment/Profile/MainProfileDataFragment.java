@@ -189,6 +189,7 @@ public class MainProfileDataFragment extends Fragment {
 
 
     public void getUserName(){
+
         database.collection("userName")
                 .document(Objects.requireNonNull(auth.getCurrentUser()).getUid())
                 .get()
@@ -200,7 +201,7 @@ public class MainProfileDataFragment extends Fragment {
                             DocumentSnapshot document = task.getResult();
                             if (document != null) {
                                 userName = document.getString("userName");
-                                Log.d("asdcsvdsv", userName);
+                               // Log.d("asdcsvdsv", userName);
                                 database.collection(HelperClass.USERS_COLLECTION_NAME)
                                         .document(userName)
                                         .get()

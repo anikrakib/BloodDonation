@@ -8,6 +8,7 @@
     <string name="addressHints">Please provide correct address. This information will keep safe</string>
     <string name="number_picker_formatter">%2d</string>
     <string name="forgetPassword"><u>Forgot Password?</u></string>
+    <string name="schedule"><u>Schedule</u></string>
     <!-- Font -->
     <string name="roboto_regular">sans-serif</string>
     <string name="roboto_light">sans-serif-light</string>
