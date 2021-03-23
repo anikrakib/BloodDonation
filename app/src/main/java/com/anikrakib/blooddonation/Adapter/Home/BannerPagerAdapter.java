@@ -3,6 +3,8 @@ package com.anikrakib.blooddonation.Adapter.Home;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
+import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +21,14 @@ import com.anikrakib.blooddonation.R;
 import com.anikrakib.blooddonation.Utills.HelperClass;
 import com.bumptech.glide.Glide;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.TimeZone;
 
 public class BannerPagerAdapter extends PagerAdapter {
 
@@ -73,7 +78,8 @@ public class BannerPagerAdapter extends PagerAdapter {
             date.setText("Held On "+campaignModel.getCampaignDate());
         }
 
-
+        String timesAgo = (String) DateUtils.getRelativeTimeSpanString(campaignModel.getCampaignTime().getSeconds()*1000);
+        time.setText(timesAgo);
 
         container.addView(slideLayout);
         return slideLayout;

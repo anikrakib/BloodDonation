@@ -20,4 +20,6 @@
     <string name="remainingDateHints">days until you can donate again</string>
     <string name="freeToDonateBlood">You are free To Donate Blood</string>
     <string name="happyDonateBlood">You are free To Donate Blood</string>
+    <string name="hints"><font color='#000000'><b>Musa Clinic</b></font> Posted a blood requested near You</string>
+    <string name="hints2"><font color='#000000'><b>Anik Rakib</b></font> Is now available for blood</string>
 </resources>
