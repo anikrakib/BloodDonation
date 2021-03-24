@@ -33,29 +33,54 @@ public class UrgentRequestActivity extends AppCompatActivity {
         activityUrgentRequestBinding = ActivityUrgentRequestBinding.inflate(getLayoutInflater());
         setContentView(activityUrgentRequestBinding.getRoot());
 
+        String requestType = getIntent().getExtras().getString("requestType");
         database = FirebaseFirestore.getInstance();
 
+        activityUrgentRequestBinding.title.setText(requestType);
+
+        loadData(requestType);
+    }
+
+    private void loadData(String requestType){
         final List<BloodRequestModel> bloodRequestModels = new ArrayList<>();
         final UrgentRequestAdapter adapter = new UrgentRequestAdapter(getApplicationContext(), bloodRequestModels);
 
-        database.collection(HelperClass.REQUEST_FOR_BLOOD)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        bloodRequestModels.clear();
-                        assert value != null;
-                        for (DocumentSnapshot snapshot : value.getDocuments()) {
-                            BloodRequestModel model = snapshot.toObject(BloodRequestModel.class);
-                            bloodRequestModels.add(model);
+        if (requestType.equals("My Requests")){
+            database.collection(HelperClass.USERS_COLLECTION_NAME)
+                    .document(MainActivity.userName)
+                    .collection(HelperClass.REQUEST_FOR_BLOOD)
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            bloodRequestModels.clear();
+                            assert value != null;
+                            for (DocumentSnapshot snapshot : value.getDocuments()) {
+                                BloodRequestModel model = snapshot.toObject(BloodRequestModel.class);
+                                bloodRequestModels.add(model);
 
+                            }
+                            adapter.notifyDataSetChanged();
                         }
-                        adapter.notifyDataSetChanged();
-                    }
-                });
+                    });
+        }else if(requestType.equals("Urgent Requests")){
+            database.collection(HelperClass.REQUEST_FOR_BLOOD)
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            bloodRequestModels.clear();
+                            assert value != null;
+                            for (DocumentSnapshot snapshot : value.getDocuments()) {
+                                BloodRequestModel model = snapshot.toObject(BloodRequestModel.class);
+                                bloodRequestModels.add(model);
 
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
+
+        }
 
         activityUrgentRequestBinding.requestedRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         activityUrgentRequestBinding.requestedRecyclerView.setAdapter(adapter);
-
     }
 }

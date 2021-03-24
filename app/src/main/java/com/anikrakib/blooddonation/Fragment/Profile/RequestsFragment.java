@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.anikrakib.blooddonation.Activity.MainActivity;
 import com.anikrakib.blooddonation.Adapter.UrgentRequestAdapter;
 import com.anikrakib.blooddonation.Model.BloodRequestModel;
 import com.anikrakib.blooddonation.R;
@@ -44,7 +45,9 @@ public class RequestsFragment extends Fragment {
         final List<BloodRequestModel> bloodRequestModels = new ArrayList<>();
         final UrgentRequestAdapter adapter = new UrgentRequestAdapter(getContext(), bloodRequestModels);
 
-        database.collection(HelperClass.REQUEST_FOR_BLOOD)
+        database.collection(HelperClass.USERS_COLLECTION_NAME)
+                .document(MainActivity.userName)
+                .collection(HelperClass.REQUEST_FOR_BLOOD)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

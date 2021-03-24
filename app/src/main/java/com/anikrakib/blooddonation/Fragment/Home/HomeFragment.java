@@ -111,7 +111,11 @@ public class HomeFragment extends Fragment {
         });
 
         fragmentHomeBinding.urgentRequest.setOnClickListener(v->{
-            startActivity(new Intent(getContext(), UrgentRequestActivity.class));
+            startActivity(new Intent(getContext(), UrgentRequestActivity.class).putExtra("requestType","Urgent Requests"));
+        });
+
+        fragmentHomeBinding.myRequest.setOnClickListener(v->{
+            startActivity(new Intent(getContext(), UrgentRequestActivity.class).putExtra("requestType","My Requests"));
         });
 
         return fragmentHomeBinding.getRoot();

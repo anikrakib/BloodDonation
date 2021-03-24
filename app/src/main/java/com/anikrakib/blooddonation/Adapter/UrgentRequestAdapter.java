@@ -48,7 +48,7 @@ public class UrgentRequestAdapter extends RecyclerView.Adapter<UrgentRequestAdap
         BloodRequestModel bloodRequestModel = bloodRequestModels.get(position);
         holder.bloodGroup.setText(bloodRequestModel.getBloodGroup());
         holder.hospital.setText(bloodRequestModel.getHospitalName());
-        holder.postTime.setText(bloodRequestModel.getPostDateAndTime());
+        holder.timeAndDay.setText(bloodRequestModel.getRequiredDate());
         holder.location.setText(bloodRequestModel.getLocation());
         holder.relation.setText(bloodRequestModel.getRelation());
 

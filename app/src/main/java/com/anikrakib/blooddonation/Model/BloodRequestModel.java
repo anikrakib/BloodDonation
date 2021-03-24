@@ -8,6 +8,7 @@ public class BloodRequestModel {
     private String requiredDate;
     private String postDateAndTime;
     private boolean urgentOrScheduled;
+    private boolean managedOrNot;
     private String userId;
 
     public BloodRequestModel() {
@@ -69,11 +70,19 @@ public class BloodRequestModel {
         this.urgentOrScheduled = urgentOrScheduled;
     }
 
-    public String  isUserId() {
-        return userId;
-    }
-
     public void setUserId(String  userId) {
         this.userId = userId;
+    }
+
+    public boolean isManagedOrNot() {
+        return managedOrNot;
+    }
+
+    public void setManagedOrNot(boolean managedOrNot) {
+        this.managedOrNot = managedOrNot;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 }
