@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -64,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment = null;
                 switch (i){
                     case R.id.map:
-                        fragment = new MapFragment();
+                        //fragment = new MapFragment();
+                        startActivity(new Intent(getApplicationContext(),MapActivity.class));
                         break;
                     case R.id.notification:
                         fragment = new NotificationFragment();

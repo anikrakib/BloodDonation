@@ -9,6 +9,10 @@
     <string name="number_picker_formatter">%2d</string>
     <string name="forgetPassword"><u>Forgot Password?</u></string>
     <string name="schedule"><u>Schedule</u></string>
+<!--    <string name="google_maps_api_key">AIzaSyBlCZJ6pyVByCystR3vr6HoRZE4U7WE0uM</string>-->
+    <string name="google_maps_api_key">AIzaSyCjuY8I6U7sf0UmwcZID22JXqUyTYQpLVM</string>
+<!--    <string name="google_maps_api_key">AIzaSyCqRzno_AZbxIzJhTF6vKn9hFc2sAXDe1Q</string>-->
+
     <!-- Font -->
     <string name="roboto_regular">sans-serif</string>
     <string name="roboto_light">sans-serif-light</string>
